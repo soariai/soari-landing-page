@@ -8,6 +8,7 @@ export default function LandingPage() {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [imagesLoaded, setImagesLoaded] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -119,8 +120,39 @@ export default function LandingPage() {
             <a href="#about">About</a>
             <a href="#pricing">Pricing</a>
           </div>
-          <button className="nav-cta">Download App</button>
+          <div className="nav-actions">
+            <button className="nav-cta">Download App</button>
+            <button 
+              className="mobile-menu-toggle"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label="Toggle mobile menu"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                {isMobileMenuOpen ? (
+                  <path d="M18 6L6 18M6 6L18 18" />
+                ) : (
+                  <>
+                    <path d="M3 12h18M3 6h18M3 18h18" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </div>
         </div>
+        
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <div className="mobile-menu">
+            <div className="mobile-menu-content">
+              <a href="#features" onClick={() => setIsMobileMenuOpen(false)}>Features</a>
+              <a href="#about" onClick={() => setIsMobileMenuOpen(false)}>About</a>
+              <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)}>Pricing</a>
+              <button className="mobile-menu-cta" onClick={() => setIsMobileMenuOpen(false)}>
+                Download App
+              </button>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
